@@ -6,10 +6,12 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
+
+window.addEventListener("scroll", ()=>{
+  document.getElementById('top-menu').style=`background-color: rgba(30, 30, 30, ${1 - Math.max(120 - window.scrollY, 0)/120});`
+})
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
