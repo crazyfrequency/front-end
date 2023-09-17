@@ -12,6 +12,7 @@
     margin-left: auto;
     margin-right: auto;
 }.textBlock{
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 2rem;

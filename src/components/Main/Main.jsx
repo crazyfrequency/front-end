@@ -1,19 +1,13 @@
 import React from 'react';
 import s from './Main.module.css';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel, Pagination, Scrollbar } from "swiper";
+import { Mousewheel, Pagination, Scrollbar, Autoplay } from "swiper";
+import data from './data.json';
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import './Main.css';
-
-const urls = [
-    "./domik.jpg",
-    "./domik2.jpg",
-    "./domik3.jpg",
-    "./domik4.jpg",
-];
 
 export default function Main() {
     return (
@@ -33,14 +27,31 @@ export default function Main() {
                 mousewheel={{
                     forceToAxis:true
                 }}
+                onInit={swiper=>{
+                    document.removeEventListener("keydown", ()=>null);
+                    document.addEventListener("keydown", async event => {
+                        if(event.code==="ArrowRight"){
+                            event.preventDefault();
+                            swiper.slideNext();
+                        }else if(event.code==="ArrowLeft"){
+                            event.preventDefault();
+                            swiper.slidePrev();
+                        }
+                    });
+                }}
                 initialSlide={0}
-                centeredSlides
                 scrollbar
+                loop
+                autoplay={{
+                    disableOnInteraction: false,
+                    delay: 5000
+                }}
+                centeredSlides
                 spaceBetween={30}
-                modules={[Mousewheel, Pagination, Scrollbar]}
+                modules={[Mousewheel, Pagination, Scrollbar, Autoplay]}
                 className={s.mySwiper}
             >
-                {urls.map(v=>(
+                {data.map(v=>(
                     <SwiperSlide>
                         <img src={v} alt='' />
                     </SwiperSlide>
