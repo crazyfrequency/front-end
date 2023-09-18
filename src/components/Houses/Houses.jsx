@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Swiper, { Mousewheel, Pagination, Scrollbar } from 'swiper';
+import { Mousewheel, Pagination, Scrollbar } from 'swiper';
 import s from './Houses.module.css';
-import { SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const Houses = () => {
     let [data, setData] = useState(null);
     useEffect(()=>{
-        fetch("")
+        fetch("http://localhost:8080/choices").then(v=>v.json()).then(v=>setData(v))
     },[])
     if(!data) return (
         <div className={s.main+" "+s.load}>
@@ -44,7 +44,11 @@ const Houses = () => {
                 modules={[Mousewheel, Pagination, Scrollbar]}
                 className={s.mySwiper}
             >
-                {}
+                {data.map(v=>(
+                    <SwiperSlide>
+                        <img src={v} alt='' />
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     );
